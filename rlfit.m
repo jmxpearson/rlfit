@@ -37,9 +37,9 @@ if ~exist('ub', 'var')
 end
 
 % rescale outcomes to offer better fit convergence
-outmean = mean(outcome);
-outstd = std(outcome);
-z = (outcome - outmean)./outstd;
+outmean = mean(outcome(:));
+outstd = std(outcome(:));
+z = bsxfun(@minus, outcome, outmean)/outstd;
 
 % first, define a log likelihood function that takes as its input a vector
 % of parameters, the first of which is the inverse temperature of the

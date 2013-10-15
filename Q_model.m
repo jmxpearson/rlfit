@@ -1,7 +1,7 @@
 function out=Q_model(alpha,choice,outcome)
 % basic reinforcement learning model
 % calculate the action values, given model parameters
-% alpha is the learning rate
+alpha is the learning rate
 
 N=length(outcome); %number of trials
 k=length(unique(choice)); %number of options
