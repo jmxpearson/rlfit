@@ -1,19 +1,18 @@
 % example.m
 % basic code for fitting a learning model
 
-%let's assume we have variables choice and outcome for each trial
+% load up data
+load testdata
 
-%define a function to minimize (-log likelihood for observed data)
-fitfun=@(beta)(-1)*sum(LL_model(beta,choice,outcome));
+% model has only one parameter, the learning rate, between 0 and 1
+% in general, there will be one of these for each parameter (excluding the
+% softmax parameter)
+lb = 0; %lower bounds
+ub = 1; %upper bounds
 
-%now set bounds for shift, softmax parameter, and learining rate
-%see LL_model for more details
-lb=[-50 1e-5 0]; %lower bounds
-ub=[50 100 1]; %upper bounds
-
-%now optmize to fit model
+% now optmize to fit model
 numiter = 10;
-[beta,fval]=multmin(fitfun,lb,ub,numiter,options);
+[beta, LL, Q] = rlfit(@Q_model, choice, outcome, lb, ub, numiter);
 
-LL=-fval;
-
+% plot results
+plot(Q)

@@ -2,6 +2,9 @@ function y=LL_softmax(xx,choice)
 %calculate log of softmax function at each of the values in xx
 %handles cases of extreme values by Taylor series
 
+% make choice a column vector
+choice = choice(:);
+
 hh = exp(xx); %exponentiate values
 [N, K] = size(hh); %number of trials and options, respectively
 
@@ -12,7 +15,7 @@ hmin=1e-15;
 %now do cases
 %first, do straightforward cases
 norm = sum(hh,2); %normalization (sum each row; i.e., sum over options of exp(xx))
-to_grab = sub2ind([N, K], 1:N, choice); %get linear index for each option chosen
+to_grab = sub2ind([N, K], (1:N)', choice); %get linear index for each option chosen
 lik = hh(to_grab);
 LL = log(lik./norm);
 
