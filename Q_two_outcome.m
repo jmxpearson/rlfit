@@ -7,7 +7,7 @@ function [Q, Q_mon, Q_soc] = Q_two_outcome(beta, choice, outcome)
 %social outcomes
 
 N = size(outcome, 1); %number of trials
-k = length(unique(choice)); %number of options
+k = max(unique(choice)); %number of options
 Q_mon = nan(N,k); %values of each choice each trial
 Q_soc = nan(N,k);
 Qthis_mon = nan(N,1); %value of chosen option
