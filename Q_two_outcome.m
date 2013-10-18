@@ -1,4 +1,4 @@
-function Q = Q_two_outcome(beta, choice, outcome)
+function [Q, Q_mon, Q_soc] = Q_two_outcome(beta, choice, outcome)
 %calculate the log likelihood of observed choices, given model parameters
 %beta, choices, and outcomes
 %beta(1) is a learning rate for monetary
