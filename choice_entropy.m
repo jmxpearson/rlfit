@@ -1,4 +1,4 @@
-function out = entropy(x)
+function out = choice_entropy(x)
 % calculate entropy in x 
 
 px = accumarray(x, 1);  % counts of each unique value in x
