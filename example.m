@@ -10,9 +10,16 @@ load testdata
 lb = 0; %lower bounds
 ub = 1; %upper bounds
 
+% however, we can also use a decorator to add perseveration behavior 
+% to the model:
+% the following are limits for a perseveration bonus
+lb = [-1, lb];
+ub = [1, ub];
+Qfun = add_perseveration(@Q_model);
+
 % now optmize to fit model
 numiter = 10;
-[beta, LL, Q] = rlfit(@Q_model, choice, outcome, lb, ub, numiter);
+[beta, LL, Q] = rlfit(Qfun, choice, outcome, lb, ub, numiter);
 
 % plot results
 plot(Q)
