@@ -53,7 +53,7 @@ fitfun = @(beta)(-1)*sum(LLfun(beta, choice, z));
 % now combine upper and lower bounds on softmax temp with upper and lower
 % bounds on other parameters
 lb = [1e-5, lb]; %lower bounds
-ub = [100, ub]; %upper bounds
+ub = [10, ub]; %upper bounds
 
 % optmize to fit model
 w = warning ('off','all');
