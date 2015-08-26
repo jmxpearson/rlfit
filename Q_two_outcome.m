@@ -4,7 +4,7 @@ function [Q, Q_mon, Q_soc] = Q_two_outcome(beta, choice, outcome)
 %beta(1) is a learning rate for monetary
 %beta(2) is a learning rate for social
 %beta(3) is the alpha of how much one is adjusting between monetary and
-%social outcomes
+%social outcomes (1 = entirely monetary; 2 = entirely social)
 
 N = size(outcome, 1); %number of trials
 k = max(unique(choice)); %number of options
