@@ -18,20 +18,15 @@ outcome_soc = outcome(:,2);
 
 Q_mon(1,:) = 0;%initialize guesses
 Q_soc(1,:) = 0;
-Qthis_mon(1) = 0;
-Qthis_soc(1) = 0;
 
-for ind=2:N
-    %old business: bring forward action values from last trial
-    Q_mon(ind,:) = Q_mon(ind-1,:); %all values set to those for last trial
-    Qthis_mon(ind) = Q_mon(ind,choice(ind)); %value we based our decision this trial on
+for ind=1:(N - 1)
+    % copy forward action values to next trial
+    Q_mon(ind + 1,:) = Q_mon(ind,:); 
+    Q_soc(ind + 1,:) = Q_soc(ind,:); 
     
-    Q_soc(ind,:) = Q_soc(ind-1,:); %all values set to those for last trial
-    Qthis_soc(ind) = Q_soc(ind,choice(ind)); %value we based our decision this trial on
-    
-    %now do learning update for chosen value
-    Q_mon(ind,choice(ind)) = Q_mon(ind,choice(ind)) + beta(1)*(outcome_mon(ind)-Q_mon(ind,choice(ind))); 
-    Q_soc(ind,choice(ind)) = Q_soc(ind,choice(ind)) + beta(2)*(outcome_soc(ind)-Q_soc(ind,choice(ind)));
+    % update option chosen on this trial for next trial's choice
+    Q_mon(ind + 1,choice(ind)) = Q_mon(ind,choice(ind)) + beta(1)*(outcome_mon(ind)-Q_mon(ind,choice(ind))); 
+    Q_soc(ind + 1,choice(ind)) = Q_soc(ind,choice(ind)) + beta(2)*(outcome_soc(ind)-Q_soc(ind,choice(ind)));
     
 end
 

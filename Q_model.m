@@ -10,13 +10,12 @@ Qthis=nan(N,1); %value of chosen option
 
 Q(1,:) = 0; %initialize guesses
 
-for ind = 2:N
-    %old business: bring forward action values from last trial
-    Q(ind,:) = Q(ind-1,:); %all values set to those for last trial
+for ind = 1:(N - 1) 
+    % copy forward action values to next trial
+    Q(ind + 1, :) = Q(ind, :);
     
-    %now do learning update for chosen value
-    Q(ind,choice(ind)) = Q(ind,choice(ind)) + alpha*(outcome(ind)-Q(ind,choice(ind))); 
-    
+    % update option chosen on this trial for next trial's choice
+    Q(ind + 1,choice(ind)) = Q(ind,choice(ind)) + alpha*(outcome(ind)-Q(ind,choice(ind)));     
 end
 
 %return vector of action values for each trial
