@@ -27,7 +27,7 @@ ub = [1, 1, 1]; % upper bounds
 % so that it will sum to 1 only on the options present
 ispresentx = false(size(options, 1), nset);
 for idx = 1:size(options, 1)
-    ispresentx(idx, options(idx, 1:length(nopt))) = true;
+    ispresentx(idx, options(idx, 1:nopt)) = true;
     % options contains the numerical index of the option 
     % presented in each position on each trial
 end
