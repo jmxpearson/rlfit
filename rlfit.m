@@ -15,7 +15,7 @@ function [beta, LL, Q] = rlfit(Qfun, choice, outcome, lb, ub, niter, ...
 %
 % niter (optional) is the number of random restarts to use in fitting
 %
-% ispresentx is a vector, one per trial, indicating options present
+% ispresentx (optional) is a vector, one per trial, indicating options present
 % (1 if present, 0 if not present)
 % 
 % outputs:

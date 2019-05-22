@@ -33,7 +33,7 @@ for idx = 1:size(options, 1)
 end
 
 if isequal(size(choice, 1), size(ispresentx, 1)) == false
-    error('AAARGH!')
+    error('ispresentx and data are different length!')
 end
 
 % Optmize to fit model
