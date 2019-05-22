@@ -1,4 +1,5 @@
-function [beta, LL, Q] = rlfit(Qfun, choice, outcome, lb, ub, niter)
+function [beta, LL, Q] = rlfit(Qfun, choice, outcome, lb, ub, niter, ...
+    ispresentx)
 % fits a reinforcement learning model to a multi-option choice paradigm
 % inputs:
 %
@@ -13,6 +14,9 @@ function [beta, LL, Q] = rlfit(Qfun, choice, outcome, lb, ub, niter)
 % lb and ub are vectors of upper and lower bounds on parameters
 %
 % niter (optional) is the number of random restarts to use in fitting
+%
+% ispresentx is a vector, one per trial, indicating options present
+% (1 if present, 0 if not present)
 % 
 % outputs:
 %
@@ -23,6 +27,9 @@ function [beta, LL, Q] = rlfit(Qfun, choice, outcome, lb, ub, niter)
 % 
 % Q is a trials x options matrix of action values
 
+if (~exist('ispresentx', 'var')) || isempty(ispresentx)
+        ispresentx = true;
+end  
 
 if ~exist('niter', 'var')
     niter = 10;
@@ -44,7 +51,8 @@ z = bsxfun(@minus, outcome, outmean)/outstd;
 % first, define a log likelihood function that takes as its input a vector
 % of parameters, the first of which is the inverse temperature of the
 % softmax
-LLfun = @(x, choice, z) LL_softmax(x(1) * Qfun(x(2:end), choice, z), choice);
+LLfun = @(x, choice, z) LL_softmax(x(1) * Qfun(x(2:end), choice, z) .* ...
+                        ispresentx, choice);
 
 % then define a function to be minimized (the total negative log
 % likelihood)
